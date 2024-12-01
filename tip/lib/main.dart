@@ -30,6 +30,24 @@ class Utip extends StatefulWidget {
 }
 
 class _UtipState extends State<Utip> {
+   int _personCont=1;
+
+//Methods
+void increment(){
+  setState(() {
+ _personCont=_personCont+1;   
+  });
+
+}
+void decrement(){
+  setState(() {
+    if(_personCont>0){
+_personCont=_personCont-1;
+    }
+    
+  });
+
+}
   @override
   Widget build(BuildContext context) {
     var    theme= Theme.of(context);
@@ -97,26 +115,7 @@ class _UtipState extends State<Utip> {
                       },
                     ),
                     //split bill
-                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                       children: [
-                         Row(
-                         
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                                             Text("Split",style:theme.textTheme.titleMedium,)
-                          ]),
-
-                          Row(
-                            children: [
-                          IconButton(color: theme.colorScheme.primary, onPressed: ()=>{}, icon: const Icon(Icons.remove)),
-                        Text("4",style: theme.textTheme.titleMedium,),
-                         IconButton(color: theme.colorScheme.primary , onPressed:()=>{}, icon:  const Icon(Icons.add))
-                      ],
-                          )
-                       ]
-                       
-                     ),
+                     PersonCounter(theme: theme, personCont: _personCont),
                       
                         
                       ],
@@ -129,5 +128,40 @@ class _UtipState extends State<Utip> {
 
       );
     
+  }
+}
+
+class PersonCounter extends StatelessWidget {
+  const PersonCounter({
+    super.key,
+    required this.theme,
+    required int personCont,
+  }) : _personCont = personCont;
+
+  final ThemeData theme;
+  final int _personCont;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+        
+         mainAxisAlignment: MainAxisAlignment.start,
+         children: [
+                            Text("Split",style:theme.textTheme.titleMedium,)
+         ]),
+    
+         Row(
+           children: [
+         IconButton(color: theme.colorScheme.primary, onPressed: ()=>{}, icon: const Icon(Icons.remove)),
+       Text("$_personCont",style: theme.textTheme.titleMedium,),
+        IconButton(color: theme.colorScheme.primary , onPressed:()=>{}, icon:  const Icon(Icons.add))
+     ],
+         )
+      ]
+      
+    );
   }
 }
