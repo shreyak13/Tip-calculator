@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tip/widgets/person_counter.dart';
 
 void main() {
   runApp(const MyApp());
@@ -41,7 +42,7 @@ void increment(){
 }
 void decrement(){
   setState(() {
-    if(_personCont>0){
+    if(_personCont>1){
 _personCont=_personCont-1;
     }
     
@@ -115,53 +116,17 @@ _personCont=_personCont-1;
                       },
                     ),
                     //split bill
-                     PersonCounter(theme: theme, personCont: _personCont),
+                     PersonCounter(theme: theme, personCont: _personCont,onDecrement: decrement,onIncrement: increment,),
                       
                         
                       ],
                     )
       
-                ),
-              ),
+              ),)
             ])
         
 
       );
     
-  }
-}
-
-class PersonCounter extends StatelessWidget {
-  const PersonCounter({
-    super.key,
-    required this.theme,
-    required int personCont,
-  }) : _personCont = personCont;
-
-  final ThemeData theme;
-  final int _personCont;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-        
-         mainAxisAlignment: MainAxisAlignment.start,
-         children: [
-                            Text("Split",style:theme.textTheme.titleMedium,)
-         ]),
-    
-         Row(
-           children: [
-         IconButton(color: theme.colorScheme.primary, onPressed: ()=>{}, icon: const Icon(Icons.remove)),
-       Text("$_personCont",style: theme.textTheme.titleMedium,),
-        IconButton(color: theme.colorScheme.primary , onPressed:()=>{}, icon:  const Icon(Icons.add))
-     ],
-         )
-      ]
-      
-    );
   }
 }
