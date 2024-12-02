@@ -3,6 +3,7 @@ import 'package:tip/widgets/person_counter.dart';
 import 'package:tip/widgets/tipslider.dart';
 
 import 'widgets/billAmount.dart';
+import 'widgets/totalper.dart';
 
 void main() {
   runApp(const MyApp());
@@ -72,27 +73,9 @@ class _UtipState extends State<Utip> {
         appBar: AppBar(
           title: Text('utip'),
         ),
-        body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          Container(
-              padding: const EdgeInsets.all(18),
-              decoration: BoxDecoration(
-                  color: Colors.deepPurple,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(width: 1.0)),
-              child: Column(
-                children: [
-                  Text(
-                    'total per person',
-                    style: theme.textTheme.displaySmall,
-                  ),
-                  Text(
-                    '$total',
-                    style: style.copyWith(
-                        color: theme.colorScheme.onPrimary,
-                        fontSize: theme.textTheme.displaySmall?.fontSize),
-                  ),
-                ],
-              )),
+        body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, 
+        children: [
+          TotalPerPerson(theme: theme, total: total, style: style),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
@@ -124,7 +107,7 @@ class _UtipState extends State<Utip> {
                       children: [
                        
                         Text('Tip',style:theme.textTheme.titleSmall,),
-                         Text('$totaltip',style:theme.textTheme.titleSmall,)
+                         Text(totaltip.toStringAsFixed(2),style:theme.textTheme.titleSmall,)
 
                       ],
                     ),
