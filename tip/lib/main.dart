@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tip/widgets/person_counter.dart';
+import 'package:tip/widgets/tipslider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +15,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'UTip',
       theme: ThemeData(
-       
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
@@ -31,102 +31,106 @@ class Utip extends StatefulWidget {
 }
 
 class _UtipState extends State<Utip> {
-   int _personCont=1;
+  int _personCont = 1;
+  
+  double _tipPercent=0.0;
 
 //Methods
-void increment(){
-  setState(() {
- _personCont=_personCont+1;   
-  });
+  void increment() {
+    setState(() {
+      _personCont = _personCont + 1;
+    });
+  }
 
-}
-void decrement(){
-  setState(() {
-    if(_personCont>1){
-_personCont=_personCont-1;
-    }
-    
-  });
+  void decrement() {
+    setState(() {
+      if (_personCont > 1) {
+        _personCont = _personCont - 1;
+      }
+    });
+  }
 
-}
   @override
   Widget build(BuildContext context) {
-    var    theme= Theme.of(context);
-    final style =theme.textTheme.titleMedium!.copyWith(
-      color: theme.colorScheme.onPrimary,
-      fontWeight: FontWeight.bold
-    );
+    var theme = Theme.of(context);
+    final style = theme.textTheme.titleMedium!.copyWith(
+        color: theme.colorScheme.onPrimary, fontWeight: FontWeight.bold);
 
-    
-    return  Scaffold(
-
-      appBar: AppBar(
-        title: Text('utip'),
-        
-
-      ),
-
-      body:  Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-     
-        children: [
-           Container(
-            padding: const EdgeInsets.all(18),
-            decoration: BoxDecoration(color: Colors.deepPurple, 
-            borderRadius: BorderRadius.circular(10),
-            border:Border.all( width: 1.0)),
-            
-            child: Column(
-              children: [
-                 Text('total per person',style: theme.textTheme.displaySmall
-                
-                  , ),
-                 Text('\$20', style: style.copyWith(
-                  color: theme.colorScheme.onPrimary,
-                  fontSize: theme.textTheme.displaySmall?.fontSize
-                 ),),
-
-              ],
-            )),
-
-
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container (
-                
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('utip'),
+        ),
+        body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          Container(
+              padding: const EdgeInsets.all(18),
+              decoration: BoxDecoration(
+                  color: Colors.deepPurple,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(width: 1.0)),
+              child: Column(
+                children: [
+                  Text(
+                    'total per person',
+                    style: theme.textTheme.displaySmall,
+                  ),
+                  Text(
+                    '\$20',
+                    style: style.copyWith(
+                        color: theme.colorScheme.onPrimary,
+                        fontSize: theme.textTheme.displaySmall?.fontSize),
+                  ),
+                ],
+              )),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
-                  border: Border.all(
-                    color: theme.colorScheme.primary,
-                    width: 2
-                  ),
-                  
-                  
+                  border:
+                      Border.all(color: theme.colorScheme.primary, width: 2),
                 ),
-                child:  Column(
+                child: Column(
                   children: [
                     TextField(
-                      decoration:const  InputDecoration(
-                        border: OutlineInputBorder(),
-                        prefixIcon: Icon(Icons.attach_money),
-                       labelText: 'bill amount'),
+                      decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          prefixIcon: Icon(Icons.attach_money),
+                          labelText: 'bill amount'),
                       keyboardType: TextInputType.number,
-                      onChanged: (String value) {
-                      
-                      },
+                      onChanged: (String value) {},
                     ),
                     //split bill
-                     PersonCounter(theme: theme, personCont: _personCont,onDecrement: decrement,onIncrement: increment,),
-                      
-                        
-                      ],
-                    )
-      
-              ),)
-            ])
-        
+                    PersonCounter(
+                      theme: theme,
+                      personCont: _personCont,
+                      onDecrement: decrement,
+                      onIncrement: increment,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                       
+                        Text('Tip',style:theme.textTheme.titleSmall,),
+                         Text('20',style:theme.textTheme.titleSmall,)
 
-      );
-    
+                      ],
+                    ),
+
+                    //slider text
+
+                    Text('${(_tipPercent*100).round()}%'),
+                    slider(tipPercent: _tipPercent, onChanged: (double value) { 
+                      setState(() {
+                        _tipPercent=value;
+                      
+                    }); },)
+                  ],
+                  
+                ),
+                
+),
+          )
+        ]));
   }
 }
+

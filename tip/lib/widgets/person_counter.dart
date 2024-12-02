@@ -30,8 +30,13 @@ class PersonCounter extends StatelessWidget {
          IconButton(color: theme.colorScheme.primary, onPressed: onDecrement, icon: const Icon(Icons.remove)),
        Text("$_personCont",style: theme.textTheme.titleMedium,),
         IconButton(color: theme.colorScheme.primary , onPressed:onIncrement, icon:  const Icon(Icons.add))
+
+        // Tip selection
+
+
      ],
          )
+         
       ]
       
     );
